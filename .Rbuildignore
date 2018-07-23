@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^data_18i_10s\.RData$
+^data_18i_20s\.RData$
+^test\.R
