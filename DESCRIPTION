@@ -1,9 +1,9 @@
 Package: lme4signal
 Type: Package
-Title: lmer function for signal of experimental design.
+Title: Fit mixed models on signals
 Version: 0.1.0
 Authors@R: c(person("Jaromil","Frossard", email = "jaromil.frossard@unige.ch",role = c("aut", "cre")))
-Description: lmer function works with julia MixedModels.
+Description: Fit multiple lmer with the same correlation structure for each column of a multivariate response.
 License: GPL (>= 2)
 Imports: lme4,methods
 Encoding: UTF-8

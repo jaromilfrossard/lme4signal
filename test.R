@@ -1,7 +1,10 @@
 rm(list=ls())
 library(lme4)
-lf= list.files("R")
-for(i in lf){print(i);source(paste("R/",i,sep=""))}
+
+#lf= list.files("R")
+#for(i in lf){print(i);source(paste("R/",i,sep=""))}
+
+library(lme4signal)
 
 load("data_18i_20s.RData")
 
@@ -9,7 +12,7 @@ load("data_18i_20s.RData")
 
 
 df=data_signal$design
-signal20=data_signal$y
+signal20=data_signal$y[,1:10]
 
 df$Anum = model.matrix(~A,df,contrasts.arg = list(A=contr.poly))[,-1]
 df = cbind(df,as.matrix(model.matrix(~B,df,contrasts.arg = list(B=contr.poly))[,-1]))
@@ -30,6 +33,8 @@ f_signal = signal20~A*B*C + ((Bnum1+Bnum2)*Cnum||id)+ ((Anum*Cnum)||item)
 
 m_signal = lmersignal(f_signal,df,REML = T)
 
+
+lx = getME(m_signal,"X",SIMPLIFY=T)
 
 ranefmat= sapply(m_signal,function(model)ranef(model)$item[,1])
 ts.plot(t(ranefmat))

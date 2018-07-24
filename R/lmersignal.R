@@ -1,11 +1,12 @@
-#' Linear Mixed Models with check on the starting value.
+#' Linear Mixed Models for signal
 #'
-#' @description This function provide a small modification of the \code{lme4} function \code{link{lmer}} and check if the starting value is a good solution. Works with the JuliaCall and produces faster optimization.
-#' @param formula a \code{lme4} formula.
+#' @description This function return a list mixed model fitted using the same design on each column of a matrix response variable. Theta parameters are assume to be smooth.
+#'
+#' @param formula a \code{lme4} formula where the response is a matrix.
 #' @param data a data frame. See \code{\link{lmer}} for more details.
 #' @param REML a logical that indicate which criterion to optimize. See \code{\link{lmer}} for more details.
 #' @param control Some parameters. See \link{lmerControl} or \code{\link{lmer}} for more details.
-#' @param start starting values for the parameters. Check if it is a good solution before running the optimizer.
+#' @param start starting values for the parameters.
 #' @param verbose See \code{\link{lmer}} for more details.
 #' @param subset an expression to selecte a subset of the data. See \code{\link{lmer}} for more details.
 #' @param weights an optional vector of weights. See \code{\link{lmer}} for more details.
@@ -14,8 +15,10 @@
 #' @param contrasts a list of coFntrasts. See \code{\link{lmer}} for more details.
 #' @param devFunOnly a logical set by default to \code{FALSE}. See \code{\link{lmer}} for more details.
 #' @param ... addition arguments. See \code{\link{lmer}} for more details.
+#' @return A listofmerMod object which is a list of merMod object.
 #' @seealso \code{\link{lmer}}.
-#' @importFrom lme4 lmerControl glmerControl mkLmerDevfun optimizeLmer checkConv mkMerMod
+#' @importFrom lme4 lmerControl glmerControl mkLmerDevfun optimizeLmer checkConv mkMerMod nobars
+#' @importFrom stats df model.frame model.response update.formula
 #' @export
 lmersignal <- function (formula, data = NULL, REML = TRUE, control = lmerControl(),
           start = NULL, verbose = 0L, subset, weights, na.action, offset,
@@ -54,5 +57,6 @@ lmersignal <- function (formula, data = NULL, REML = TRUE, control = lmerControl
     output[[i]] = eval(mc)
     print(i)
   }
+  class(output) <- "listofmerMod"
   return(output)
 }
