@@ -1,9 +1,10 @@
 rm(list=ls())
 library(lme4)
 
-#lf= list.files("R")
-#for(i in lf){print(i);source(paste("R/",i,sep=""))}
+# lf= list.files("R")
+# for(i in lf){print(i);source(paste("R/",i,sep=""))}
 
+devtools::install_github("jaromilfrossard/lme4signal")
 library(lme4signal)
 
 load("data_18i_20s.RData")
