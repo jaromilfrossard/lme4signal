@@ -13,7 +13,7 @@ load("data_18i_20s.RData")
 
 
 df=data_signal$design
-signal20=data_signal$y[,1:10]
+signal20=data_signal$y[,1:100]
 
 df$Anum = model.matrix(~A,df,contrasts.arg = list(A=contr.poly))[,-1]
 df = cbind(df,as.matrix(model.matrix(~B,df,contrasts.arg = list(B=contr.poly))[,-1]))
@@ -33,6 +33,15 @@ flmer = y~A*B*C + ((Bnum1+Bnum2)*Cnum||id)+ ((Anum*Cnum)||item)
 f_signal = signal20~A*B*C + ((Bnum1+Bnum2)*Cnum||id)+ ((Anum*Cnum)||item)
 
 m_signal = lmersignal(f_signal,df,REML = T)
+
+
+getME(m_signal,"X",SIMPLIFY=T)
+thetas= getME(m_signal,"theta",SIMPLIFY=T)
+
+ts.plot(t(thetas)[,c(1,7)])
+ranef(m_signal)
+
+ranef(m_signal)
 
 
 lx = getME(m_signal,"X",SIMPLIFY=T)
