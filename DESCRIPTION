@@ -5,7 +5,7 @@ Version: 0.1.0
 Authors@R: c(person("Jaromil","Frossard", email = "jaromil.frossard@unige.ch",role = c("aut", "cre")))
 Description: Fit multiple lmer with the same correlation structure for each column of a multivariate response.
 License: GPL (>= 2)
-Imports: lme4,methods
+Imports: lme4,methods,lmerTest
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1

@@ -18,6 +18,7 @@
 #' @return A listofmerMod object which is a list of merMod object.
 #' @seealso \code{\link{lmer}}.
 #' @importFrom lme4 lmerControl glmerControl mkLmerDevfun optimizeLmer checkConv mkMerMod nobars
+#' @importFrom lmerTest lmer
 #' @importFrom stats model.frame model.response update.formula
 #' @export
 lmersignal <- function (formula, data = NULL, REML = TRUE, control = lmerControl(),
@@ -45,7 +46,7 @@ lmersignal <- function (formula, data = NULL, REML = TRUE, control = lmerControl
   #signal <- model.response(lmod$fr)
 
   mc$control <- control
-  mc[[1]] <- quote(lme4::lmer)
+  mc[[1]] <- quote(lmerTest::lmer)
   mc$formula = update.formula(old= formula(mc),new = eval(parse(text=paste(paste(nobars(formula)[[2]]),"[,1]~.",sep=""))))
   print(dim(signal))
   output=list()
